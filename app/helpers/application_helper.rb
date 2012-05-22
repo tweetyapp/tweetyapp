@@ -3,7 +3,7 @@ module ApplicationHelper
   # title for page
   
   def title
-    base_title ="RoR Tutorials Sample App"
+    base_title ="Tweety - Paint your posts!"
     if @title.nil?
       base_title
     else
