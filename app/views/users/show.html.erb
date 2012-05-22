@@ -7,10 +7,18 @@
 				<%=  @user.name %>
 			</h1>			
 			<h3><%= @user.email %></h3>
+
+			<%if @user.microposts.any? %>
+				<table class ="microposts" summary = "User microposts">
+					<%= render @microposts %>
+				</table>
+				<%= will_paginate @microposts %>
+			<% end %>
 		</td>
 		<td class="sidebar round">
 			<strong>Name</strong> <%= @user.name %> <br/>
-			<strong>Catch me at</strong> <%= link_to "/users/#{@user.name}",@user%>
+			<strong>Catch me at</strong> <%= link_to "/users/#{@user.name}",@user%><br/>
+			<strong>Microposts</strong> <%= @user.microposts.count %>
 		</td>
 	</tr>
 	</table>
