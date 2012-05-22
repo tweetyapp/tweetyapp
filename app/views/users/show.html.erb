@@ -18,7 +18,7 @@
 		<td class="sidebar round">
 			<strong>Name</strong> <%= @user.name %> <br/>
 			<strong>Catch me at</strong> <%= link_to "/users/#{@user.name}",@user%><br/>
-			<strong>Microposts</strong> <%= @user.microposts.count %>
+			<strong>Tweets</strong> <%= @user.microposts.count %>
 		</td>
 	</tr>
 	</table>
