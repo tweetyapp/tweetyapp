@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 
   def index
     @title = "All users"
-    @users = User.paginate(:page => params[:page])
+    @users = User.paginate(:page => params[:page], :per_page => 15)
   end
   def new
   	@title="Sign up"
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
-    @microposts = @user.microposts.paginate(:page => params[:page])
+    @microposts = @user.microposts.paginate(:page => params[:page], :per_page => 10)
   	@title = @user.name
   end
 

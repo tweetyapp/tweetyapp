@@ -1,7 +1,7 @@
 <h3>About Me</h3>
 <table class="profile" summary="Profile information">
 	<tr>
-		<td class="main">
+		<td class="main" rowspan=2>
 			<h1>
 				<%= gravatar_img @user%>
 				<%=  @user.name %>
@@ -19,6 +19,11 @@
 			<strong>Name</strong> <%= @user.name %> <br/>
 			<strong>Catch me at</strong> <%= link_to "/users/#{@user.name}",@user%><br/>
 			<strong>Tweets</strong> <%= @user.microposts.count %>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			hi
 		</td>
 	</tr>
 	</table>

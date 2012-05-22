@@ -1,5 +1,5 @@
 .container {
-	width: 710px;
+	width: 910px;
 
 }
 
@@ -222,6 +222,9 @@ table.microposts tr td.micropost {
 border-top: 1px solid #ccc;
 vertical-align: top;
 padding-top: 10px;
+}
+table.microposts tr td.micropost span.content {
+	color: red;
 }
 table.microposts tr td.micropost span.timestamp {
 	display: block;
