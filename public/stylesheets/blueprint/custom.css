@@ -24,6 +24,17 @@ section {
 	background: #fff;
 }
 
+p {
+	color: aqua;
+}
+h3 {
+	color: green;
+}
+
+h1 {
+	color: red;
+}
+
 /*Links */
 
 a {
