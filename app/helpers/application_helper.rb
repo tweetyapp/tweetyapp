@@ -12,6 +12,6 @@ module ApplicationHelper
   end
 
   def logo
-  	image_tag("logo.png", :alt => "Sample App", :class => "round")
+  	image_tag("final_logo.jpeg", :alt => "Sample App", :class => "round", :options => {:size => 50})
   end
 end
