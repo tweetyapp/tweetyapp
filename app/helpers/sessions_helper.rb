@@ -21,6 +21,11 @@ module SessionsHelper
 		self.current_user = nil
 	end
 
+  	def deny_access
+    	redirect_to signin_path , :flash => { :notice => "Please sign in to access this page!"} unless signed_in?
+  	end
+
+
 	private
 		def user_from_remember_token
 			User.authenticate_with_salt(*remember_token)
