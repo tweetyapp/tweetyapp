@@ -36,7 +36,7 @@ describe UsersController do
 
     it "should have the right url" do
       get :show, :id => @user
-      response.should have_selector("td>a",:content => user_path(@user), :href => user_path(@user))
+      response.should have_selector("td>a",:content => "users/#{@user.name}", :href => user_path(@user))
     end
   end
 

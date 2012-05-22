@@ -4,9 +4,12 @@
 }
 
 body {
-	background: #cff;
+	background: aqua;
+	color: white;
 }
-
+strong {
+	color: black;
+}
 header
 {
 	padding-top: 20px;
@@ -21,7 +24,7 @@ section {
 	margin-top: 1em;
 	font-size: 120%;
 	padding: 20px;
-	background: #fff;
+	background: #000;
 }
 
 p {
@@ -32,7 +35,7 @@ h3 {
 }
 
 h1 {
-	color: red;
+	color: gold;
 }
 
 /*Links */
@@ -141,6 +144,7 @@ width: 30%;
 padding: 1em;
 vertical-align: top;
 background: #ffc;
+color: red;
 }
 
 .profile img.gravatar {

@@ -4,7 +4,7 @@ describe PagesController do
 
   render_views
   before(:each) do
-    @base_title = "RoR Tutorials Sample App"
+    @base_title = "Tweety - Paint your posts!"
   end
   describe "GET 'home'" do
     it "should be successful" do
