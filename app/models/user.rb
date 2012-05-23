@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+	has_friendly_id :url
 	has_many :microposts, :dependent => :destroy
 	has_many :relationships, :dependent => :destroy,
 							 :foreign_key => "follower_id"
@@ -13,7 +14,7 @@ class User < ActiveRecord::Base
 
 	attr_accessor :password
 
-	attr_accessible :name,:email, :password, :password_confirmation
+	attr_accessible :name,:email, :password, :password_confirmation, :url
 
 	email_regex =/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :name, :presence => true,
@@ -48,7 +49,12 @@ class User < ActiveRecord::Base
 	class << self
 		def authenticate(email,submitted_password)
 			user = find_by_email(email)
-			(user && user.has_password?(submitted_password)) ? user : nil
+			if user.nil?
+				flash[:error] = "cannot find user"
+				return nil
+			end
+			return user if user.has_password?(submitted_password)
+
 		end
 
 		def authenticate_with_salt(id,cookie_salt)

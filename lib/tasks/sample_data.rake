@@ -43,4 +43,11 @@ namespace :db do
 		following.each { |followed| user.follow!(followed) }
 		followers.each {|follower|  follower.follow!(user)}
 	end
+
+	desc "update url field"
+	task :update_url => [:environment] do
+		for temp_user in User.all 
+			temp_user.update_attribute(:url, temp_user.id)
+		end
+	end
 end

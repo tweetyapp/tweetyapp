@@ -35,6 +35,7 @@ class UsersController < ApplicationController
   def create
   	@user= User.new(params[:user])
   	if @user.save
+      @user.update_attribute(:url,@user.id)
   		redirect_to @user, :flash => { :success => "Welcome to the Sample App!"
 }
   	else
@@ -60,6 +61,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    #raise params.inspect
     User.find(params[:id]).destroy
     flash[:success] = "User deleted"
     redirect_to users_path
