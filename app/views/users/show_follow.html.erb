@@ -9,7 +9,7 @@
 	<% end %>
 	<td class="sidebar round">
 	<strong>Name</strong> <%= @user.name %><br />
-	<strong>URL</strong> <%= link_to user_path(@user), @user %><br />
+	<strong>Catch me at</strong> <%= link_to "/users/#{@user.url}", @user %><br />
 	<strong>Microposts</strong> <%= @user.microposts.count %>
 	<%= render 'shared/stats' %>
 	<% if @users.any? %>
@@ -20,3 +20,4 @@
 	</td>
 	</tr>
 </table>
+<%= will_paginate %>

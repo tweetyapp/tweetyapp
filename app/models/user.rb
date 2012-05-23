@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
 	attr_accessible :name,:email, :password, :password_confirmation, :url
 
 	email_regex =/\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+
+	url_regex = /\A[a-z0-9]+\z/i
 	validates :name, :presence => true,
 						:length => { :maximum => 50}
 	validates :email, :presence => true,
@@ -25,9 +27,10 @@ class User < ActiveRecord::Base
 	validates :password, :presence => true,
 							:confirmation => true,
 							:length => { :within => 6..40 }
+	validates :url, :format => {:with => url_regex}							
 	before_save :encrypt_password
 
-	scope :admin, where(:admin => true)
+	#scope :admin, where(:admin => true)
 	def has_password?(submitted_password)
 		encrypted_password == encrypt(submitted_password)
 	end
