@@ -1,13 +1,13 @@
 <h3>About Me</h3>
 <table class="profile" summary="Profile information">
 	<tr>
-		<td class="main" rowspan=2>
+		<td class="main">
 			<h1>
 				<%= gravatar_img @user%>
 				<%=  @user.name %>
 			</h1>			
 			<h3><%= @user.email %></h3>
-
+			<%= render 'follow_form' if signed_in? %>
 			<%if @user.microposts.any? %>
 				<table class ="microposts" summary = "User microposts">
 					<%= render @microposts %>
@@ -19,11 +19,8 @@
 			<strong>Name</strong> <%= @user.name %> <br/>
 			<strong>Catch me at</strong> <%= link_to "/users/#{@user.name}",@user%><br/>
 			<strong>Tweets</strong> <%= @user.microposts.count %>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			hi
+			<%= render 'shared/stats' %>
+
 		</td>
 	</tr>
 	</table>
