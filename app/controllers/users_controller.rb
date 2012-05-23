@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :authenticate, :only => [:edit, :update,:show]
+  before_filter :authenticate, :except => [:show,:new,:create]
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user, :only => [:destroy]
 
@@ -19,6 +19,19 @@ class UsersController < ApplicationController
   	@title = @user.name
   end
 
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.following.paginate(:page => params[:page], :per_page => 10)
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(:page => params[:page], :per_page => 10)
+    render 'show_follow'
+  end
   def create
   	@user= User.new(params[:user])
   	if @user.save
@@ -56,7 +69,7 @@ class UsersController < ApplicationController
 
   def correct_user
     @user = User.find(params[:id])
-    redirect_to root_path unless current_user?(@user)
+    redirect_to root_path, :flash => {:error => "You dont have enough permission to do the requested operation"} unless current_user?(@user)
   end
 
   def admin_user
