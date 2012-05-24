@@ -37,6 +37,7 @@ class UsersController < ApplicationController
   	@user= User.new(params[:user])
   	if @user.save
       @user.update_attribute(:url,@user.id)
+      sign_in @user
   		redirect_to @user, :flash => { :success => "Welcome to the Sample App!"
 }
   	else
@@ -70,6 +71,7 @@ class UsersController < ApplicationController
   end
 
   def forgot
+    @user=User.new
     render 'forgot'
   end
 
@@ -96,10 +98,15 @@ class UsersController < ApplicationController
   def reset_password 
     if params[:reset_code]
       user = User.find_by_reset_code(params[:reset_code])
-      @@current_user = user if user && user.reset_code_valid && Time.now < user.reset_code_valid
-      unless @@current_user.nil?
-        flash[:success]= "Set your new password " + @@current_user.name + " !"
-        render 'updatepass', :locals => { :cur_user => @@current_user.email}
+      if user && user.reset_code_valid && Time.now < user.reset_code_valid
+        current_user = user 
+      else
+        current_user=nil
+      end
+      unless current_user.nil?
+        flash[:success]= "Set your new password " + current_user.name + " !"
+        @user = User.new
+        render 'updatepass', :locals => { :cur_user => current_user.email}
       else
         flash[:error]= "Link expired"
         redirect_to root_path
@@ -113,11 +120,16 @@ class UsersController < ApplicationController
     #raise params.inspect
     if access_check
       current_user = User.find_by_email(params[:user][:cur_user])
+      @user = current_user
       unless current_user.nil?
         current_user.password = current_user.password_confirmation=params[:user][:password]
-        current_user.save!
-        flash[:success] = "Password updated successfully! Login again #{current_user.name}" 
-        redirect_to signin_path
+        current_user.reset_code = current_user.reset_code_valid= nil;
+        if current_user.save
+          flash[:success] = "Password updated successfully! Login again #{current_user.name}" 
+          redirect_to signin_path
+        else
+          render 'updatepass', :locals => { :cur_user => @user.email}
+        end
       else
         flash[:error] = "Sign in to access page"
         redirect_to root_path

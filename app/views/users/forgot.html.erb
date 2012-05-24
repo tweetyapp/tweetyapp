@@ -1,0 +1,14 @@
+<h3>Enter the email id to which reset link will be sent</h3>
+
+<%= form_for(@user, :url => forgotlink_path)  do |f|%>
+<%= render 'shared/error_messages', :object => f.object %>
+
+	<div class="field">
+		<%= f.label :email, "Email id" %>
+		<%= f.text_field :email %>
+	</div>
+	<div class="actions">
+		<%= f.submit "Send" %>
+	</div>
+
+<% end %>

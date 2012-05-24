@@ -5,6 +5,14 @@ class MicropostsController < ApplicationController
 	def create
 		@micropost = current_user.microposts.build(params[:micropost])
 		if @micropost.save
+			string = params[:micropost][:content]
+			matches = string.scan(/@[a-z]+/)
+			matches.each do |match|
+				user = User.find_by_url(match[1..match.length])
+				unless user.nil?
+					TagNotifier.send_notification(user,current_user.url).deliver
+				end
+			end
 			redirect_to root_path, :flash => {:success => "Your tweet posted sucessfully!"}
 		else
 			@feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 10)
