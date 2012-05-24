@@ -17,6 +17,10 @@ Sample::Application.routes.draw do
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
+  match '/forgot', :to => 'users#forgot'
+  match '/forgotlink', :to => 'users#forgotlink'
+  match '/reset_password/:reset_code', :to => 'users#reset_password'
+  match '/updatepass', :to => 'users#update_password'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
