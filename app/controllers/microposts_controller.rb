@@ -7,8 +7,7 @@ class MicropostsController < ApplicationController
 		if @micropost.save
 			redirect_to root_path, :flash => {:success => "Your tweet posted sucessfully!"}
 		else
-			#@feed_items = current_user.feed.paginate(:page => params[:page])
-			@feed_items = []
+			@feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 10)
 			render 'pages/home'	
 		end
 	end

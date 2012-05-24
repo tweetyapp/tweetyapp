@@ -53,11 +53,7 @@ class User < ActiveRecord::Base
 	class << self
 		def authenticate(email,submitted_password)
 			user = find_by_email(email)
-			if user.nil?
-				flash[:error] = "cannot find user"
-				return nil
-			end
-			return user if user.has_password?(submitted_password)
+			(user && user.has_password?(submitted_password)) ? user : nil
 
 		end
 
